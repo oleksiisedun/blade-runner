@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <button class="button-run" id="runButton" onclick="run()">Run</button>
+  </body>
+  <script>
+    function run() {
+      google.script.run
+        .withFailureHandler(() => {
+          run();
+        })
+        .heavyTask();
+    }
+  </script>
+</html>
