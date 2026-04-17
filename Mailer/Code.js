@@ -14,8 +14,8 @@ const EMAIL_SIGN_OFF = '<br>Best regards.';
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
   ui.createMenu('Mail Tools 💌')
-      .addItem('Send All Files to All Emails', 'sendAllFilesToAllEmails')
-      .addToUi();
+    .addItem('Send All Files to All Emails', 'sendAllFilesToAllEmails')
+    .addToUi();
 }
 
 /**
