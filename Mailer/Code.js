@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// This file is managed in Git: https://github.com/oleksiisedun/apps-script
+// Edit there, not here. Built with the help of Claude (claude.ai).
+// ─────────────────────────────────────────────────────────────────────────────
+
 /**
  * Configuration Constants
  * Update these values if your data moves to different columns or you want a different email.
