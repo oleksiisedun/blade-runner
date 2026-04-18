@@ -49,7 +49,7 @@ function heavyTask() {
     Utilities.sleep(1000 * 60);
 
     if (currentCount == 7) {
-      console.log('We are finished!')
+      console.log('We are finished')
       break;
     }
     setStoreProperty('PROGRESS', { count: currentCount + 1 });
