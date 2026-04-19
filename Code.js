@@ -19,7 +19,7 @@ function showWebView() {
 
 function onOpen() {
   const menu = SpreadsheetApp.getUi().createMenu("Oleksii 🛸");
-  menu.addItem('Відкрити WebView', 'showWebView');
+  menu.addItem('Open Launcher', 'showWebView');
   menu.addToUi();
 }
 
