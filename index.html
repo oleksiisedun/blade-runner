@@ -1,18 +1,114 @@
+<!--
+  This file is maintained in a Git repository and is normally edited in an
+  external editor, co-authored with Claude Code.
+  Repository: https://github.com/oleksiisedun/blade-runner
+
+  ⚠ WARNING: Any changes made directly in the Apps Script web editor may be
+  overwritten the next time the code is pushed from the repository.
+-->
 <!DOCTYPE html>
 <html>
   <head>
     <base target="_top">
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        margin: 0;
+        gap: 24px;
+      }
+
+      #runButton {
+        padding: 10px 28px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      #runButton:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      #status {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        color: #555;
+        font-size: 14px;
+      }
+
+      #status.visible {
+        display: flex;
+      }
+
+      .spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid #ddd;
+        border-top-color: #555;
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      #elapsed {
+        font-variant-numeric: tabular-nums;
+      }
+    </style>
   </head>
   <body>
-    <button class="button-run" id="runButton" onclick="run()">Run</button>
+    <button id="runButton" onclick="run()">Run</button>
+
+    <div id="status">
+      <div class="spinner"></div>
+      <span id="statusText">Running...</span>
+      <span id="elapsed">0s</span>
+    </div>
+
+    <script>
+      let startTime, timer, cancelled = false;
+
+      window.addEventListener('beforeunload', () => {
+        cancelled = true;
+        google.script.run.cancelTask();
+      });
+
+      function run() {
+        document.getElementById('runButton').disabled = true;
+        document.getElementById('status').classList.add('visible');
+
+        startTime = Date.now();
+        timer = setInterval(() => {
+          const s = Math.floor((Date.now() - startTime) / 1000);
+          document.getElementById('elapsed').textContent = s + 's';
+        }, 1000);
+
+        google.script.run
+          .withSuccessHandler(onDone)
+          .withFailureHandler(onFail)
+          .heavyTask();
+      }
+
+      function onDone() {
+        clearInterval(timer);
+        const s = Math.floor((Date.now() - startTime) / 1000);
+        document.querySelector('.spinner').style.display = 'none';
+        document.getElementById('elapsed').style.display = 'none';
+        document.getElementById('statusText').textContent = `Task completed in ${s}s`;
+        document.getElementById('runButton').disabled = false;
+      }
+
+      function onFail() {
+        if (!cancelled) run();
+      }
+    </script>
   </body>
-  <script>
-    function run() {
-      google.script.run
-        .withFailureHandler(() => {
-          run();
-        })
-        .heavyTask();
-    }
-  </script>
 </html>
