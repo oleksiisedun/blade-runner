@@ -14,7 +14,7 @@ function showWebView() {
 
   const html = template.evaluate().setWidth(500).setHeight(500);
 
-  SpreadsheetApp.getUi().showModalDialog(html, 'BladeRunner');
+  SpreadsheetApp.getUi().showModalDialog(html, 'Blade Runner');
 }
 
 function onOpen() {
