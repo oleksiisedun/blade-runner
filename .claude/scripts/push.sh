@@ -61,14 +61,13 @@ COMMIT_MSG="$(git log -1 --pretty=%s)"
 PUSHED_AT="$(date -u '+%Y-%m-%d %H:%M UTC')"
 
 echo ""
-printf "==> Send deployment notification? [y/N] "
-read -r NOTIFY
+NOTIFY="${1:-n}"
 if [[ "$NOTIFY" =~ ^[Yy]$ ]]; then
-  echo "Sending..."
+  echo "==> Sending deployment notifications..."
   send_notification "$COMMIT_HASH" "$COMMIT_MSG" "$PUSHED_AT"
   echo "Notified: ${RECIPIENTS[*]}"
 else
-  echo "Skipped."
+  echo "==> Notification skipped."
 fi
 
 echo ""
