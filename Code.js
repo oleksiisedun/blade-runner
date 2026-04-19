@@ -7,7 +7,7 @@
 // overwritten the next time the code is pushed from the repository.
 // =============================================================================
 
-const PROGRESS_KEY = PROGRESS_KEY;
+const PROGRESS_KEY = 'PROGRESS';
 
 function showWebView() {
   const template = HtmlService.createTemplateFromFile('index');
